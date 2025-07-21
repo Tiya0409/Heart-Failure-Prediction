@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>❤️ Heart Failure Prediction</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+<style>
+    body {
+        font-family: 'Montserrat', sans-serif;
+        background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+    .container {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        text-align: center;
+        width: 400px;
+        animation: fadeIn 1s ease-in;
+    }
+    h1 {
+        color: #e63946;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 0.95rem;
+    }
+    input[type="submit"] {
+        margin-top: 15px;
+        padding: 12px;
+        background-color: #e63946;
+        color: white;
+        font-size: 1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+        background-color: #d62828;
+    }
+    .result {
+        margin-top: 20px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #1d3557;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>❤️ Heart Failure Prediction</h1>
+
+    <form action="/predict" method="post">
+        {% for col in ['age','anaemia','creatinine_phosphokinase','diabetes','ejection_fraction',
+                       'high_blood_pressure','platelets','serum_creatinine','serum_sodium',
+                       'sex','smoking','time'] %}
+            <input type="text" name="{{col}}" placeholder="{{col | replace('_', ' ')}}" required>
+        {% endfor %}
+        <input type="submit" value="Predict">
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">{{ prediction_text }}</div>
+    {% endif %}
+</div>
+
+</body>
+</html>
